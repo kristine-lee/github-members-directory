@@ -1,8 +1,27 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+const mockResponse = [
+  { "login": "Bob" },
+  { "login": "Cat" },
+  { "login": "Zuli" }
+];
+
+describe("App", () => {
+  beforeEach(() => {
+    jest.spyOn(global, "fetch").mockResolvedValue({
+      json: jest.fn().mockResolvedValue(mockResponse)
+    });
+  });
+
+  test("renders the names of users when the API call is successful", async () => {
+    render(<App />);
+    expect(await screen.findByText(/Zuli/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Bob/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Cat/i)).toBeInTheDocument();
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  })
 });
