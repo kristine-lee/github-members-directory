@@ -9,7 +9,7 @@ const mockResponse = [
 
 describe("App", () => {
   beforeEach(() => {
-    jest.spyOn(global, "fetch").mockResolvedValue({
+    jest.spyOn(global, "axios").mockResolvedValue({
       json: jest.fn().mockResolvedValue(mockResponse)
     });
   });
