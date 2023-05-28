@@ -1,6 +1,35 @@
 import React, { useState, useEffect, useCallback } from "react";
+import styled from "styled-components";
 import { fetchUsers, extractNextPageSince } from "./utils/utils";
+import Card from "./components/Card";
+import Button from "./components/Button";
 
+const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const CardContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 1rem;
+  justify-items: center;
+  padding: 1.5rem;
+
+  @media (max-width: 1277px) {
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(1, 1fr); /* 1 column for mobile devices */
+  }
+`;
+
+const Heading = styled.h1`
+  text-align: center;
+`;
 
 function App() {
   const [since, setSince] = useState(0);
@@ -8,29 +37,20 @@ function App() {
   const [nextSince, setNextSince] = useState(0);
 
   useEffect(() => {
-    //   //TODO: make the query params cleaner... can i do it without using "?per_page" directly
-    //   // when someone clicks the button, we wanna make a new call
-    //   // we want the "next" header's "since"
-    //   // we're using "since" as a query param
-    //   // basically we're checking 2 things when we click button:
-    //   // 1. is there a "next" and 2. what is the next's since
-    //   // and if 1 is true, we make api call with 2.
-    //   // could even add a previous <-- button if we replicate that logic above
-    //  // returned link headers do not include "prev"
-
-    fetchUsers(since)
-    .then((res) => {
-      setUsers(res.members);
-      return res.linkHeader;
-    }).then((header) => {
-      console.log("did it get here", header)
-      const upcomingSince = extractNextPageSince(header);
-      setNextSince(upcomingSince);
-    })
-    .catch((error) => {
+    try {
+      fetchUsers(since)
+        .then((res) => {
+          setUsers(res.members);
+          return res.linkHeader;
+        })
+        .then((header) => {
+          console.log("did it get here", header);
+          const upcomingSince = extractNextPageSince(header);
+          setNextSince(upcomingSince);
+        });
+    } catch (error) {
       console.error(error);
-    });
-
+    }
   }, [since]);
 
   /*
@@ -42,18 +62,20 @@ function App() {
 
   // this is just for logging
   useEffect(() => {
-    console.log("users", users)
-    console.log("since", since, "nextsince", nextSince)
-  }, [users])
+    console.log("users", users);
+    console.log("since", since, "nextsince", nextSince);
+  }, [users]);
 
   return (
-    <div className="App">
-      <p>Fun stuff</p>
-      <ul>{users?.map((user, index) => {
-        return <li key={index}>{user.login}</li>
-      })}</ul>
-      <button onClick={() => handleNextClick()}>Next</button>
-    </div>
+    <AppContainer>
+      <Heading>Github Members Directory</Heading>
+      <CardContainer>
+        {users?.map((user, index) => {
+          return <Card key={index} username={user.login} />;
+        })}
+      </CardContainer>
+      <Button onClick={handleNextClick} text={"Next"} />
+    </AppContainer>
   );
 }
 
