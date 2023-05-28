@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { fetchUsers, extractNextPageSince } from "./utils/utils";
 
 
 function App() {
   const [since, setSince] = useState(0);
   const [users, setUsers] = useState([]);
-  const [nextSince, setNextSince] = useState(0); //TODO: is storing nextSince really the best way to go about it?
-  const [prev, setPrev] = useState(null);
+  const [nextSince, setNextSince] = useState(0);
 
   useEffect(() => {
     //   //TODO: make the query params cleaner... can i do it without using "?per_page" directly
@@ -34,15 +33,17 @@ function App() {
 
   }, [since]);
 
-  const handleNextClick = () => {
-    const toBe = nextSince;
-    setSince(toBe);
-  }
+  /*
+    Clicking the "Next" button stores the nextSince value in the since state, triggering a re-fetching of users
+   */
+  const handleNextClick = useCallback(() => {
+    setSince(nextSince);
+  }, [nextSince]);
 
   // this is just for logging
   useEffect(() => {
     console.log("users", users)
-    console.log("since", since, "nextsince", nextSince, "prevSince", prev)
+    console.log("since", since, "nextsince", nextSince)
   }, [users])
 
   return (
@@ -52,7 +53,6 @@ function App() {
       <ul>{users?.map((user, index) => {
         return <li key={index}>{user.login}</li>
       })}</ul>
-      <button disabled={since === 0}>Previous</button>
       <button onClick={() => handleNextClick()}>Next</button>
     </div>
   );

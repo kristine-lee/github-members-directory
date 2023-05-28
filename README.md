@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Decisions
 
-Github's API supports `since` query parameter. This is given in the link header returned from the API call and points to the id of the user last seen.
+Github's API supports `since` query parameter. This is given in the link header returned from the API call and points to the id of the user last seen. User ids are not continuous and must be fetched separately, rather than calculated.
 However, not all link header relations are supported for all endpoints. "/users" endpoint didn't seem to support "prev" relations.
 
 This project utilizes server-side pagination as it is more memory efficient.
