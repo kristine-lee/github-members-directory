@@ -10,6 +10,14 @@ However, not all link header relations are supported for all endpoints. "/users"
 This project utilizes server-side pagination as it is more memory efficient.
 
 
+UI:
+Card: If no name is available, it displays the user's username instead. If no email is available, it'll tell you.
+creating separate styled components encapsulates styling logic for each part of a component.
+styles are scoped to the specific DOM element.
+If there are styles that are shared (like font maybe) then use mixins using 'css' from styled components
+
+
+
 Future improvements:
 - Containerization
 - Set up a CI/CD pipeline
