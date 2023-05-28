@@ -1,10 +1,11 @@
 import axios from "axios";
-import { fetchUsers, extractNextPageSince } from "./utils";
+import { fetchUsers, getUserDetails, extractNextPageSince } from "./utils";
 
 jest.mock("axios");
 
 describe("fetchUsers", () => {
   it("should fetch users and linkHeader", async () => {
+    const since = 1;
     const mockData = [
       { login: "foo", id: 1 },
       { login: "bar", id: 4 },
@@ -24,7 +25,7 @@ describe("fetchUsers", () => {
 
     axios.get.mockResolvedValue(mockResponse);
 
-    const response = await fetchUsers(1);
+    const response = await fetchUsers(since);
 
     expect(axios.get).toHaveBeenCalledWith("https://api.github.com/users", {
       params: {
@@ -37,6 +38,34 @@ describe("fetchUsers", () => {
     });
     expect(response.members).toEqual(mockData);
     expect(response.linkHeader).toEqual("mock link header");
+  });
+});
+
+describe("getUserDetails", () => {
+  it.only("should return the user's details when the API call is successful", async () => {
+    const username = "foobarbaz";
+    const mockUserDetails = {
+      login: "foobarbaz",
+      id: 12345,
+      avatar_url: "not a real url",
+      name: "Foo Bar",
+      location: "New York City",
+      email: "not@myemail.com",
+      public_repos: 65,
+    };
+
+    axios.get.mockResolvedValueOnce({ data: mockUserDetails });
+
+    const result = await getUserDetails(username);
+    expect(axios.get).toHaveBeenCalledWith(
+      `https://api.github.com/users/${username}`,
+      {
+        headers: {
+          Authorization: `Bearer undefined`,
+        },
+      }
+    );
+    expect(result).toEqual(mockUserDetails);
   });
 });
 

@@ -17,6 +17,15 @@ export const fetchUsers = async (since) => {
   };
 };
 
+export const getUserDetails = async (username) => {
+  const response = await axios.get(`${GITHUB_URL}/${username}`, {
+    headers: {
+      Authorization: `Bearer ${API_KEY}`,
+    },
+  });
+  return response.data;
+};
+
 //TODO: think about optimizing this function. JS string manipulation is more performant than regex (but this is also basically using regex so idk)
 export const extractNextPageSince = (linkHeader) => {
   if (!linkHeader) return 0;
