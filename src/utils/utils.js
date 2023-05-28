@@ -12,7 +12,6 @@ export const fetchUsers = async (since) => {
       Authorization: `Bearer ${API_KEY}`
     }
   });
-  // console.log("what is this", response)
   return {
     members: response.data, linkHeader: response.headers.get("Link")
   };
