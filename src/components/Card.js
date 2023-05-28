@@ -3,7 +3,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { getUserDetails } from "../utils/utils";
 
-const CardContainer = styled.div`
+const StyledCard = styled.div`
   border: 1px solid rgba(239, 239, 240, 0.5);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   width: 16rem;
@@ -96,7 +96,7 @@ const Card = ({ username }) => {
     }
   }, [username]);
   return (
-    <CardContainer>
+    <StyledCard>
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -136,7 +136,7 @@ const Card = ({ username }) => {
           </CardLowerHalf>
         </>
       )}
-    </CardContainer>
+    </StyledCard>
   );
 };
 

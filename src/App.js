@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { fetchUsers, extractNextPageSince } from "./utils/utils";
 import Card from "./components/Card";
 import Button from "./components/Button";
+import Heading from "./components/Heading";
 
 const AppContainer = styled.div`
   display: flex;
@@ -27,8 +28,10 @@ const CardContainer = styled.div`
   }
 `;
 
-const Heading = styled.h1`
-  text-align: center;
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
 `;
 
 function App() {
@@ -68,13 +71,15 @@ function App() {
 
   return (
     <AppContainer>
-      <Heading>Github Members Directory</Heading>
+      <Heading text={"Github Members Directory"} />
       <CardContainer>
         {users?.map((user, index) => {
           return <Card key={index} username={user.login} />;
         })}
       </CardContainer>
-      <Button onClick={handleNextClick} text={"Next"} />
+      <ButtonContainer>
+        <Button onClick={handleNextClick} text={"Next"} />
+      </ButtonContainer>
     </AppContainer>
   );
 }

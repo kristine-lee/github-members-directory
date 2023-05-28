@@ -3,12 +3,19 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 const StyledButton = styled.button`
-  display: flex;
-  justify-content: center;
   margin: 1rem;
   text-transform: uppercase;
+  padding: 1rem;
   height: 3rem;
-  max-width: 9rem;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  background-color: black;
+  color: white;
+
+  :hover {
+    opacity: 0.75;
+  }
 `;
 
 const Button = ({ onClick, text }) => {
