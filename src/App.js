@@ -49,7 +49,6 @@ function App() {
   return (
     <div className="App">
       <p>Fun stuff</p>
-      {}
       <ul>{users?.map((user, index) => {
         return <li key={index}>{user.login}</li>
       })}</ul>

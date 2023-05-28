@@ -38,6 +38,11 @@
       "pre-commit": "lint-staged"
     }
   },
+  "jest": {
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",

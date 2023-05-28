@@ -12,6 +12,7 @@ export const fetchUsers = async (since) => {
       Authorization: `Bearer ${API_KEY}`
     }
   });
+  // console.log("what is this", response)
   return {
     members: response.data, linkHeader: response.headers.get("Link")
   };
@@ -25,7 +26,7 @@ export const extractNextPageSince = (linkHeader) => {
   const nextPageUrl = linkHeader
     .split(',')
     .find((link) => link.includes('rel="next"'));
-  if (!nextPageUrl) return 0;
+  if (!nextPageUrl) return null; // there's no next page. We're at the end page
 
   const nextPageSince = nextPageUrl
     .split(';')[0]
