@@ -4,6 +4,7 @@ import { fetchUsers, extractNextPageSince } from "./utils/utils";
 import Card from "./components/Card";
 import Button from "./components/Button";
 import Heading from "./components/Heading";
+import Error from "./components/Error";
 
 const AppContainer = styled.div`
   display: flex;
@@ -38,25 +39,30 @@ function App() {
   const [since, setSince] = useState(0);
   const [users, setUsers] = useState([]);
   const [nextSince, setNextSince] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    try {
-      fetchUsers(since)
-        .then((res) => {
-          setUsers(res.members);
-          return res.linkHeader;
-        })
-        .then((header) => {
-          const upcomingSince = extractNextPageSince(header);
-          setNextSince(upcomingSince);
-        });
-    } catch (error) {
-      console.error(error);
-    }
+    fetchUsers(since)
+      .then((response) => {
+        setUsers(response.members);
+        setLoading(false);
+        setError(false); // in case there was an error with the prior attempt
+        return response.linkHeader;
+      })
+      .then((header) => {
+        const nextPageSince = extractNextPageSince(header);
+        setNextSince(nextPageSince);
+      })
+      .catch((error) => {
+        setLoading(false);
+        setError(true);
+        console.error("Error with fetching users", error);
+      });
   }, [since]);
 
   /*
-    Clicking the "Next" button stores the nextSince value in the since state, triggering a re-fetching of users
+    Clicking the "Next" button changes the value of "since", triggering the fetching the next page of users
    */
   const handleNextClick = useCallback(() => {
     setSince(nextSince);
@@ -67,6 +73,14 @@ function App() {
     console.log("users", users);
     console.log("since", since, "nextsince", nextSince);
   }, [users]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <Error />;
+  }
 
   return (
     <AppContainer>

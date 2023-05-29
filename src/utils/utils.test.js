@@ -4,8 +4,8 @@ import { fetchUsers, getUserDetails, extractNextPageSince } from "./utils";
 jest.mock("axios");
 
 describe("fetchUsers", () => {
-  it("should fetch users and linkHeader", async () => {
-    const since = 1;
+  it("should fetch users and the parsed linkHeader", async () => {
+    const since = 0;
     const mockData = [
       { login: "foo", id: 1 },
       { login: "bar", id: 4 },
@@ -30,7 +30,7 @@ describe("fetchUsers", () => {
     expect(axios.get).toHaveBeenCalledWith("https://api.github.com/users", {
       params: {
         per_page: 10,
-        since: 1,
+        since: 0,
       },
       headers: {
         Authorization: "Bearer undefined",
@@ -42,7 +42,7 @@ describe("fetchUsers", () => {
 });
 
 describe("getUserDetails", () => {
-  it.only("should return the user's details when the API call is successful", async () => {
+  it("should return the user's details when the API call is successful", async () => {
     const username = "foobarbaz";
     const mockUserDetails = {
       login: "foobarbaz",

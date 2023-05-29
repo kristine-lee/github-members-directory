@@ -80,14 +80,14 @@ const Card = ({ username }) => {
   const [userDetails, setUserDetails] = useState({});
 
   useEffect(() => {
-    try {
-      getUserDetails(username).then((response) => {
-        setLoading(false);
+    getUserDetails(username)
+      .then((response) => {
         setUserDetails(response);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error getting user details", error);
       });
-    } catch (error) {
-      console.error(error);
-    }
   }, [username]);
 
   return (
