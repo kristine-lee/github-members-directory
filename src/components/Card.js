@@ -90,13 +90,8 @@ const Card = ({ username }) => {
     }
   }, [username]);
 
-  useEffect(() => {
-    if (username === "fanvsfan") {
-      console.log(userDetails);
-    }
-  }, [username]);
   return (
-    <StyledCard>
+    <StyledCard data-cy="card">
       {loading ? (
         <p>Loading...</p>
       ) : (

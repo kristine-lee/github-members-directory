@@ -19,7 +19,11 @@ const StyledButton = styled.button`
 `;
 
 const Button = ({ onClick, text }) => {
-  return <StyledButton onClick={onClick}>{text}</StyledButton>;
+  return (
+    <StyledButton onClick={onClick} data-cy={`button-${text}`}>
+      {text}
+    </StyledButton>
+  );
 };
 
 export default Button;

@@ -1,0 +1,12 @@
+{
+  "login": "baz",
+  "id": 3,
+  "node_id": "bazzzzzz",
+  "avatar_url": "https://avatars.githubusercontent.com/u/3?v=4",
+  "html_url": "https://github.com/baz",
+  "type": "User",
+  "name": "Baz",
+  "location": "San Francisco",
+  "email": "baz@email.com",
+  "public_repos": 8
+}

@@ -1,0 +1,14 @@
+{
+  "login": "qux",
+  "id": 4,
+  "node_id": "quxxxxx",
+  "avatar_url": "https://avatars.githubusercontent.com/u/4?v=4",
+  "gravatar_id": "",
+  "url": "https://api.github.com/users/qux",
+  "html_url": "https://github.com/qux",
+  "type": "User",
+  "name": "Qux",
+  "location": "Portland",
+  "email": null,
+  "public_repos": 278
+}

@@ -1,0 +1,14 @@
+{
+  "login": "fred",
+  "id": 5,
+  "node_id": "freddddd",
+  "avatar_url": "https://avatars.githubusercontent.com/u/4?v=4",
+  "gravatar_id": "",
+  "url": "https://api.github.com/users/fred",
+  "html_url": "https://github.com/fred",
+  "type": "User",
+  "name": "fred",
+  "location": null,
+  "email": null,
+  "public_repos": 22
+}

@@ -1,0 +1,12 @@
+{
+  "login": "foo",
+  "id": 1,
+  "node_id": "foooooooo",
+  "avatar_url": "https://avatars.githubusercontent.com/u/1?v=4",
+  "html_url": "https://github.com/foo",
+  "type": "User",
+  "name": "Foo",
+  "location": "San Francisco",
+  "email": "foo@email.com",
+  "public_repos": 65
+}
