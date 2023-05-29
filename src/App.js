@@ -18,7 +18,7 @@ const CardContainer = styled.div`
   justify-items: center;
   padding: 1.5rem;
 
-  @media (max-width: 1277px) {
+  @media (max-width: 1206px) {
     grid-template-columns: repeat(2, 1fr);
     justify-content: center;
   }
@@ -47,7 +47,6 @@ function App() {
           return res.linkHeader;
         })
         .then((header) => {
-          console.log("did it get here", header);
           const upcomingSince = extractNextPageSince(header);
           setNextSince(upcomingSince);
         });
@@ -63,7 +62,7 @@ function App() {
     setSince(nextSince);
   }, [nextSince]);
 
-  // this is just for logging
+  // this is just for logging. TODO: clean up before submission
   useEffect(() => {
     console.log("users", users);
     console.log("since", since, "nextsince", nextSince);

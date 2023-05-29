@@ -15,7 +15,7 @@ const StyledCard = styled.div`
 
   // @media (max-width: 1205px) { //idk maybe take it out maybe not
   //   width: 50%;
-  // }
+  // } //TODO: clean up styles before submission
 `;
 
 const CardUpperHalf = styled.div`
@@ -100,6 +100,7 @@ const Card = ({ username }) => {
             <Avatar
               src={userDetails.avatar_url}
               alt={`Avatar for ${username}`}
+              data-cy="avatar"
             />
             <NameLocationContainer>
               {userDetails.name ? (
@@ -126,7 +127,9 @@ const Card = ({ username }) => {
               <ProfileDetail>Email not available</ProfileDetail>
             )}
             <ProfileDetail>
-              <ProfileLink href={userDetails.html_url}>{username}</ProfileLink>
+              <ProfileLink href={userDetails.html_url} data-cy="github-link">
+                {username}
+              </ProfileLink>
             </ProfileDetail>
           </CardLowerHalf>
         </>
