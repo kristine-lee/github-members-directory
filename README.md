@@ -2,6 +2,8 @@
 
 Built as part of Pavilion's frontend challenge. View the deployed version at: https://kristine-lee.github.io/github-members-directory
 
+![Demo](https://github.com/kristine-lee/github-members-directory/blob/4266a54f07c38d9e2c70b4ec5a33004a982948b6/.github/github%20members%20directory%20demo.gif)
+
 
 ## Features
 
@@ -68,7 +70,7 @@ yarn start
 ```
 View the app at: [http://www.localhost:3000](http://www.localhost:3000)
 
-To run unit tests, run `yarn test`
+To run all unit tests, run `yarn test`. You can also specify a single file, for example: `yarn test App.test.js` 
 
-To run Cypress (end-to-end) tests, make sure that the app is running locally. Then run `yarn run cypress open`. Cypress should automatically open up a browser, where tests will be executed.
+To run Cypress (end-to-end) tests, make sure that the app is running locally. Then run `yarn run cypress open`. Cypress should automatically launch a headless browser. Choose the browser and test in browser. 
 
