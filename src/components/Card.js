@@ -12,10 +12,6 @@ const StyledCard = styled.div`
   flex-direction: column;
   justify-content: space-between;
   margin-bottom: 0.25rem;
-
-  // @media (max-width: 1205px) { //idk maybe take it out maybe not
-  //   width: 50%;
-  // } //TODO: clean up styles before submission
 `;
 
 const CardUpperHalf = styled.div`

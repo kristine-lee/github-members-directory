@@ -15,7 +15,7 @@ Built as part of Pavilion's frontend challenge. View the deployed version at: ht
 
 ## Approach
 
-The first factor I took into consideration was how absolutely large this data was going to be. Github has millions of users, so it seemed like the approach should be to continuously make requests to the server, rather than fetching all of the data at once. Luckily, Github API provides the ability to make paginated requests with the `since` query parameter, which maps to the `id` of a user. Github will return data ([Docs](https://docs.github.com/en/rest/guides/using-pagination-in-the-rest-api?apiVersion=2022-11-28#using-link-headers)) This parameter can be parsed from the response's `header`.
+The first factor I took into consideration was how absolutely large this data was going to be. Github has millions of users, so it seemed like the approach should be to continuously make requests to the server, rather than fetching all of the data at once. Luckily, Github API provides the ability to make paginated requests with the `since` query parameter, which maps to the `id` of a user. ([Docs](https://docs.github.com/en/rest/guides/using-pagination-in-the-rest-api?apiVersion=2022-11-28#using-link-headers)) This parameter can be parsed from the response's `header`.
 
 Link header returned from `/users*` endpoints includes the `rel=next` and `rel=first` relations. The `since` parameter included in the `rel=next` string can be used in the subsequent API call to receive the next page of users. The link header is serialized, then parsed using JavaScript methods.
 
