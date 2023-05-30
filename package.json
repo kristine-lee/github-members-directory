@@ -1,7 +1,7 @@
 {
   "name": "github-members-directory",
   "version": "0.1.0",
-  "homepage": "https://kristine-lee.github.io/github-members-directory",
+  "homepage": "https://kristine-lee.github.io/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
@@ -28,8 +28,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "pre-commit": "lint-staged",
-    "predeploy": "yarn build",
-    "deploy": "gh-pages -d build"
+    "predeploy": "yarn build echo $REACT_APP_API_KEY",
+    "deploy": "echo $REACT_APP_API_KEY gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
