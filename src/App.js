@@ -19,7 +19,7 @@ const CardContainer = styled.div`
   justify-items: center;
   padding: 1.5rem;
 
-  @media (max-width: 1206px) {
+  @media (max-width: 1280px) {
     grid-template-columns: repeat(2, 1fr);
     justify-content: center;
   }
@@ -47,7 +47,7 @@ function App() {
       .then((response) => {
         setUsers(response.members);
         setLoading(false);
-        setError(false); // in case there was an error with the prior attempt
+        setError(false); // in case there was an error with the previous attempt
         return response.linkHeader;
       })
       .then((header) => {
@@ -61,18 +61,10 @@ function App() {
       });
   }, [since]);
 
-  /*
-    Clicking the "Next" button changes the value of "since", triggering the fetching the next page of users
-   */
+  // Clicking the "Next" button changes the value of "since", triggering the fetching the next page of users
   const handleNextClick = useCallback(() => {
     setSince(nextSince);
   }, [nextSince]);
-
-  // this is just for logging. TODO: clean up before submission
-  useEffect(() => {
-    console.log("users", users);
-    console.log("since", since, "nextsince", nextSince);
-  }, [users]);
 
   if (loading) {
     return <p>Loading...</p>;

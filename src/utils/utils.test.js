@@ -70,19 +70,19 @@ describe("getUserDetails", () => {
 });
 
 describe("extractNextPageSince", () => {
-  it("should return null when no next page URL is found in linkHeader", () => {
-    const linkHeader =
-      '<https://api.github.com/users?per_page=10&since=12345>; rel="last"';
-    const result = extractNextPageSince(linkHeader);
-    expect(result).toBe(null);
-    expect(result).not.toBe(12345);
-  });
-
   it("should extract the next page since value when linkHeader is valid", () => {
     const linkHeader =
       '<https://api.github.com/users?per_page=10&since=34534>; rel="next" <https://api.github.com/users?per_page=10&since=0>; rel="first"';
     const result = extractNextPageSince(linkHeader);
     expect(result).toBe(34534);
     expect(result).not.toBe(0);
+  });
+
+  it("should return null when no next page URL is found in linkHeader", () => {
+    const linkHeader =
+      '<https://api.github.com/users?per_page=10&since=12345>; rel="last"';
+    const result = extractNextPageSince(linkHeader);
+    expect(result).toBe(null);
+    expect(result).not.toBe(12345);
   });
 });

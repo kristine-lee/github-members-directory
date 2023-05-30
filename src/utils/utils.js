@@ -26,14 +26,13 @@ export const getUserDetails = async (username) => {
   return response.data;
 };
 
-//TODO: think about optimizing this function. JS string manipulation is more performant than regex (but this is also basically using regex so idk)
 export const extractNextPageSince = (linkHeader) => {
   if (!linkHeader) return 0;
 
   const nextPageUrl = linkHeader
     .split(",")
     .find((link) => link.includes('rel="next"'));
-  if (!nextPageUrl) return null; // there's no next page. We're at the end page
+  if (!nextPageUrl) return null; // there's no next page. We're at the last page
 
   const nextPageSince = nextPageUrl.split(";")[0].match(/since=(\d+)/)[1];
 

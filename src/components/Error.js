@@ -26,7 +26,7 @@ const ErrorLink = styled.a`
 const Error = () => {
   return (
     <ErrorContainer>
-      <ErrorHeading>Something went wrong!😱 </ErrorHeading>
+      <ErrorHeading>Something went wrong!😱</ErrorHeading>
       <ErrorLink href="/">Return to home page</ErrorLink>
     </ErrorContainer>
   );
