@@ -82,7 +82,6 @@ const Card = ({ username }) => {
   useEffect(() => {
     getUserDetails(username)
       .then((response) => {
-        console.log("response------", response);
         setUserDetails(response);
         setLoading(false);
       })
