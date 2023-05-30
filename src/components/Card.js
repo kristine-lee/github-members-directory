@@ -82,6 +82,7 @@ const Card = ({ username }) => {
   useEffect(() => {
     getUserDetails(username)
       .then((response) => {
+        console.log("response------", response);
         setUserDetails(response);
         setLoading(false);
       })
@@ -89,6 +90,18 @@ const Card = ({ username }) => {
         console.error("Error getting user details", error);
       });
   }, [username]);
+
+  const conditionallyRenderName = () => {
+    return userDetails.name ? userDetails.name : username;
+  };
+
+  const conditionallyRenderLocation = () => {
+    return userDetails.location ? userDetails.location : "No location given";
+  };
+
+  const conditionallyRenderEmail = () => {
+    return userDetails.email ? userDetails.email : "Email not available";
+  };
 
   return (
     <StyledCard data-cy="card">
@@ -103,29 +116,15 @@ const Card = ({ username }) => {
               data-cy="avatar"
             />
             <NameLocationContainer>
-              {userDetails.name ? (
-                <StyledName>{userDetails.name}</StyledName>
-              ) : (
-                <StyledName>{username}</StyledName>
-              )}
-              {userDetails.location ? (
-                <StyledLocation>{userDetails.location}</StyledLocation>
-              ) : (
-                <StyledLocation>No location given</StyledLocation>
-              )}
+              <StyledName>{conditionallyRenderName()}</StyledName>
+              <StyledLocation>{conditionallyRenderLocation()}</StyledLocation>
             </NameLocationContainer>
           </CardUpperHalf>
           <CardLowerHalf>
-            {
-              <ProfileDetail>
-                {userDetails.public_repos} public repos
-              </ProfileDetail>
-            }
-            {userDetails.email ? (
-              <ProfileDetail>{userDetails.email}</ProfileDetail>
-            ) : (
-              <ProfileDetail>Email not available</ProfileDetail>
-            )}
+            <ProfileDetail>
+              {userDetails.public_repos} public repos
+            </ProfileDetail>
+            <ProfileDetail>{conditionallyRenderEmail()}</ProfileDetail>
             <ProfileDetail>
               <ProfileLink href={userDetails.html_url} data-cy="github-link">
                 {username}
