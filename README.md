@@ -1,77 +1,74 @@
-# Getting Started with Create React App
+# Github Members Directory
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Decisions
-
-Github's API supports `since` query parameter. This is given in the link header returned from the API call and points to the id of the user last seen. User ids are not continuous and must be fetched separately, rather than calculated.
-However, not all link header relations are supported for all endpoints. "/users" endpoint didn't seem to support "prev" relations.
-
-This project utilizes server-side pagination as it is more memory efficient.
+Built as part of Pavilion's frontend challenge. View the deployed version at: https://kristine-lee.github.io/github-members-directory
 
 
-UI:
-Card: If no name is available, it displays the user's username instead. If no email is available, it'll tell you.
-creating separate styled components encapsulates styling logic for each part of a component.
-styles are scoped to the specific DOM element.
-If there are styles that are shared (like font maybe) then use mixins using 'css' from styled components
+## Features
+
+- Each page displays 10 cards with information about each member, including: username (that links to their Github profile), avatar, name, location, email address, and the number of public repositories they have
+- Clicking the "Next" button fetches the next set of 10 members
+- Fully responsive, minimalist styling with styled-components
+- Error handling
 
 
+## Approach
 
-Future improvements:
-- Containerization
-- Set up a CI/CD pipeline
-- Prefetch and cache information to lessen the number of calls to the frontend
+The first factor I took into consideration was how absolutely large this data was going to be. Github has millions of users, so it seemed like the approach should be to continuously make requests to the server, rather than fetching all of the data at once. Luckily, Github API provides the ability to make paginated requests with the `since` query parameter, which maps to the `id` of a user. Github will return data ([Docs](https://docs.github.com/en/rest/guides/using-pagination-in-the-rest-api?apiVersion=2022-11-28#using-link-headers)) This parameter can be parsed from the response's `header`.
 
-## Available Scripts
+Link header returned from `/users*` endpoints includes the `rel=next` and `rel=first` relations. The `since` parameter included in the `rel=next` string can be used in the subsequent API call to receive the next page of users. The link header is serialized, then parsed using JavaScript methods.
 
-In the project directory, you can run:
+The data returned from the `/users` [endpoint](https://docs.github.com/en/rest/users/users?apiVersion=2022-11-28#list-users) doesn't include everything we need for this challenge, so a second request must be made to each user's `/users/{username}` [endpoint](https://docs.github.com/en/rest/users/users?apiVersion=2022-11-28#get-a-user).
 
-### `yarn start`
+Clicking the "Next" button on the page triggers a re-render and an API call with the new `since` parameter.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Minimalist styling was achieved using Styled Components. The app is responsive across all devices.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Unit tests were written using Jest and React Testing Library. End-to-end tests were written with Cypress to simulate user journeys and ensure consistent data flows.
 
-### `yarn test`
+### Future improvements
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- "Previous" button
+- Filtering
+- Prefetching data
+- Continuous integration and deployment
 
-### `yarn build`
+### Tech Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Bootstrapped with: [Create React App](https://create-react-app.dev)
+Styled with: [Styled Components](https://styled-components.com/)
+Tested with: Jest, React Testing Library, Cypress
+Formatted with: Eslint, Prettier, Husky
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Github access token
 
-### `yarn run cypress open`
+Create a personal access token by following the instructions [here.](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 
-### Code Splitting
+Create an `.env` file at the root, and store the key an environmental variable
+```bash
+REACT_APP_KEY= # your key
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Local Installation
+To run this project locally, follow these instructions:
 
-### Analyzing the Bundle Size
+```bash
+# clone this repository to your local machine
+git clone https://github.com/kristine-lee/github-members-directory.git
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+# go into the repository
+cd github-members-directory
 
-### Making a Progressive Web App
+# install dependencies
+yarn install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+# start the app
+yarn start
+```
+View the app at: [http://www.localhost:3000](http://www.localhost:3000)
 
-### Advanced Configuration
+To run unit tests, run `yarn test`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+To run Cypress (end-to-end) tests, make sure that the app is running locally. Then run `yarn run cypress open`. Cypress should automatically open up a browser, where tests will be executed.
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
